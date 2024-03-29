@@ -529,9 +529,6 @@ class DAG(LoggingMixin):
     ):
         from airflow.utils.task_group import TaskGroup
 
-        if tags and any(len(tag) > TAG_MAX_LEN for tag in tags):
-            raise AirflowException(f"tag cannot be longer than {TAG_MAX_LEN} characters")
-
         self.owner_links = owner_links or {}
         self.user_defined_macros = user_defined_macros
         self.user_defined_filters = user_defined_filters

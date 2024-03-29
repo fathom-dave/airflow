@@ -212,6 +212,8 @@ class ExternalTaskSensor(BaseSensorOperator):
                     "when `external_task_id` or `external_task_ids` or `external_task_group_id` "
                     f"is not `None`: {State.task_states}"
                 )
+        if external_task_ids and len(external_task_ids) > len(set(external_task_ids)):
+            raise ValueError("Duplicate task_ids passed in external_task_ids parameter")
 
         elif not total_states <= set(State.dag_states):
             raise ValueError(
@@ -247,10 +249,6 @@ class ExternalTaskSensor(BaseSensorOperator):
 
     @provide_session
     def poke(self, context: Context, session: Session = NEW_SESSION) -> bool:
-        # delay check to poke rather than __init__ in case it was supplied as XComArgs
-        if self.external_task_ids and len(self.external_task_ids) > len(set(self.external_task_ids)):
-            raise ValueError("Duplicate task_ids passed in external_task_ids parameter")
-
         dttm_filter = self._get_dttm_filter(context)
         serialized_dttm_filter = ",".join(dt.isoformat() for dt in dttm_filter)
 

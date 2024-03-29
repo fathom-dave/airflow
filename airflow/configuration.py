@@ -1276,7 +1276,7 @@ class AirflowConfigParser(ConfigParser):
 
     def read(
         self,
-        filenames: (str | bytes | os.PathLike | Iterable[str | bytes | os.PathLike]),
+        filenames: str | bytes | os.PathLike | Iterable[str | bytes | os.PathLike],
         encoding=None,
     ):
         super().read(filenames=filenames, encoding=encoding)

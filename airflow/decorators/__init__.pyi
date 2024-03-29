@@ -99,9 +99,11 @@ class TaskDecoratorCollection:
         **kwargs,
     ) -> TaskDecorator:
         """Aliasing ``python``; signature should match exactly."""
+
     @overload
     def __call__(self, python_callable: Callable[FParams, FReturn]) -> Task[FParams, FReturn]:
         """Aliasing ``python``; signature should match exactly."""
+
     @overload
     def virtualenv(  # type: ignore[misc]
         self,
@@ -155,6 +157,7 @@ class TaskDecoratorCollection:
             It can be set to False to prevent log output of return value when you return huge data
             such as transmission a large amount of XCom to TaskAPI.
         """
+
     @overload
     def virtualenv(self, python_callable: Callable[FParams, FReturn]) -> Task[FParams, FReturn]: ...
     def external_python(
@@ -188,6 +191,7 @@ class TaskDecoratorCollection:
             It can be set to False to prevent log output of return value when you return huge data
             such as transmission a large amount of XCom to TaskAPI.
         """
+
     @overload
     def branch(  # type: ignore[misc]
         self, *, multiple_outputs: bool | None = None, **kwargs
@@ -200,6 +204,7 @@ class TaskDecoratorCollection:
         :param multiple_outputs: If set, function return value will be unrolled to multiple XCom values.
             Dict will unroll to XCom values with keys as XCom keys. Defaults to False.
         """
+
     @overload
     def branch(self, python_callable: Callable[FParams, FReturn]) -> Task[FParams, FReturn]: ...
     @overload
@@ -254,6 +259,7 @@ class TaskDecoratorCollection:
             It can be set to False to prevent log output of return value when you return huge data
             such as transmission a large amount of XCom to TaskAPI.
         """
+
     @overload
     def branch_virtualenv(self, python_callable: Callable[FParams, FReturn]) -> Task[FParams, FReturn]: ...
     @overload
@@ -291,6 +297,7 @@ class TaskDecoratorCollection:
             It can be set to False to prevent log output of return value when you return huge data
             such as transmission a large amount of XCom to TaskAPI.
         """
+
     @overload
     def branch_external_python(
         self, python_callable: Callable[FParams, FReturn]
@@ -312,6 +319,7 @@ class TaskDecoratorCollection:
             will be skipped but the ``trigger_rule`` defined for a other downstream tasks will be respected.
             Defaults to True.
         """
+
     @overload
     def short_circuit(self, python_callable: Callable[FParams, FReturn]) -> Task[FParams, FReturn]: ...
     # [START decorator_signature]
@@ -463,6 +471,7 @@ class TaskDecoratorCollection:
             be a :py:class:`docker.types.Ulimit` instance.
         """
         # [END decorator_signature]
+
     def kubernetes(
         self,
         *,
@@ -631,6 +640,7 @@ class TaskDecoratorCollection:
             in V1PodSpec.
         :param progress_callback: Callback function for receiving k8s container logs.
         """
+
     @overload
     def sensor(  # type: ignore[misc]
         self,
@@ -666,6 +676,7 @@ class TaskDecoratorCollection:
             pokes by using exponential backoff algorithm
         :param max_wait: maximum wait interval between pokes, can be ``timedelta`` or ``float`` seconds
         """
+
     @overload
     def sensor(self, python_callable: Callable[FParams, FReturn] | None = None) -> Task[FParams, FReturn]: ...
     @overload
@@ -686,6 +697,7 @@ class TaskDecoratorCollection:
         :param config_kwargs: Additional kwargs to pass to the SparkSession builder. This overrides
             the config from the connection.
         """
+
     @overload
     def pyspark(
         self, python_callable: Callable[FParams, FReturn] | None = None
@@ -718,6 +730,7 @@ class TaskDecoratorCollection:
         :param cwd: Working directory to execute the command in. If None (default), the command is run in a
             temporary directory.
         """
+
     @overload
     def bash(self, python_callable: Callable[FParams, FReturn]) -> Task[FParams, FReturn]: ...
 

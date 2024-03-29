@@ -118,9 +118,11 @@ def patch_pool(
             # there is no way field is None here (UpdateMask is a List[str])
             # so if pool_schema.declared_fields[field].attribute is None file is returned
             update_mask = [
-                pool_schema.declared_fields[field].attribute  # type: ignore[misc]
-                if pool_schema.declared_fields[field].attribute
-                else field
+                (
+                    pool_schema.declared_fields[field].attribute  # type: ignore[misc]
+                    if pool_schema.declared_fields[field].attribute
+                    else field
+                )
                 for field in update_mask
             ]
         except KeyError as err:

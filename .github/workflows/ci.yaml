@@ -1,0 +1,36 @@
+name: Airflow
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "**" ]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ghcr.io/apache/airflow/main/ci/python3.8
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: tests/providers/ftp/hooks/test_ftp.py
+      run: |
+        pytest tests/providers/ftp/hooks/test_ftp.py
+    - name: tests/cli/commands/test_kerberos_command.py
+      run: |
+        pytest tests/cli/commands/test_kerberos_command.py
+    - name: tests/api_connexion/schemas/test_task_instance_schema.py
+      run: |
+        pytest tests/api_connexion/schemas/test_task_instance_schema.py
+    - name: tests/models/test_dag.py
+      run: |
+        pytest tests/models/test_dag.py
+    - name: tests/sensors/test_external_task_sensor.py
+      run: |
+        pytest tests/sensors/test_external_task_sensor.py

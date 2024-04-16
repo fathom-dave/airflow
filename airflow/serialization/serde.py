@@ -139,9 +139,6 @@ def serialize(o: object, depth: int = 0) -> U | None:
     # Serialize namedtuple like tuples
     # We also override the classname returned by the builtin.py serializer. The classname
     # has to be "builtins.tuple", so that the deserializer can deserialize the object into tuple.
-    if _is_namedtuple(o):
-        qn = "builtins.tuple"
-        classname = qn
 
     # if there is a builtin serializer available use that
     if qn in _serializers:
